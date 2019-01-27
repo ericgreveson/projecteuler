@@ -1,17 +1,6 @@
 import math
 
-from factor_tools import is_prime
-
-def next_prime(previous):
-    """
-    Get the next prime after previous
-    """
-    i = previous + 1
-    while True:
-        if is_prime(i):
-            return i
-
-        i += 1
+from factor_tools import is_prime, next_prime
 
 def main():
     """

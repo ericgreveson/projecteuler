@@ -1,5 +1,16 @@
 import math
 
+def get_digits(n):
+    """
+    Get the array of digits for n
+    """
+    digits = []
+    while n > 0:
+        digits.append(n % 10)
+        n //= 10
+
+    return digits
+
 def test_pandigital_9(*args):
     """
     Test if args together contain the digits 1 through 9 uniquely
