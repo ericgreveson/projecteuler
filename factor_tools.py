@@ -12,9 +12,12 @@ def compute_factors(n):
 
     return factors
 
-def is_prime(n):
+def is_prime(n, prime_cache=None, prime_cache_max=None):
     """
     Return true if n is prime (n>1)
+    If prime_cache is given, it should be a set of consecutive primes from 2 to prime_cache_max
+    (and prime_cache_max must also be given).
+    Then if n <= prime_cache_max, this test will use set lookup rather than factorization
     """
     # Optimizations to quickly reject known non-primes
     if n in [2, 3, 5, 7]:
@@ -22,6 +25,9 @@ def is_prime(n):
 
     if (n % 10) not in [1, 3, 7, 9] or n == 1:
         return False
+
+    if prime_cache and n <= prime_cache_max:
+        return n in prime_cache
 
     return len(compute_factors(n)) == 1
 

@@ -1,5 +1,11 @@
 import math
 
+def num_digits(n):
+    """
+    Return the number of digits (in base 10) for integer n > 0
+    """
+    return int(math.log10(n)) + 1
+
 def get_digits(n):
     """
     Get the array of digits for n
@@ -10,6 +16,19 @@ def get_digits(n):
         n //= 10
 
     return digits
+
+def reverse_digits(n):
+    """
+    Reverse the digits of n
+    """
+    multiplier = 10 ** (num_digits(n) - 1)
+    reversed_n = 0
+    while n > 0:
+        reversed_n += (n % 10) * multiplier
+        multiplier //= 10
+        n //= 10
+
+    return reversed_n
 
 def test_pandigital_9(*args):
     """
@@ -24,10 +43,28 @@ def test_pandigital_9(*args):
             a //= 10
 
     return digit_count == 9 and len(digits) == 9 and 0 not in digits
+
+def is_palindrome(n, base=10):
+    """
+    Is the given number n a palindrome in the given base?
+    """
+    if base == 10:
+        n_str = str(n)
+    elif base == 2:
+        n_str = "{0:b}".format(n)
+    else:
+        raise RuntimeError("Only 2 and 10 bases supported")
     
-def num_digits(n):
+    for i in range(len(n_str) // 2):
+        if n_str[i] != n_str[-1 - i]:
+            return False
+
+    return True
+
+def concatenate_digits(a, b):
     """
-    Return the number of digits (in base 10) for integer n > 0
+    Concatenate the digits of a and b
+    e.g. a=42, b=666 returns 42666
     """
-    return int(math.log10(n)) + 1
+    return a * (10 ** num_digits(b)) + b
     
