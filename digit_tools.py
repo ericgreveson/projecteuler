@@ -17,6 +17,18 @@ def get_digits(n):
 
     return digits
 
+def from_digits(digits):
+    """
+    Make a number from its digit array (inverse of get_digits)
+    """
+    n = 0
+    multiplier = 1
+    for d in reversed(digits):
+        n += multiplier * d
+        multiplier *= 10
+
+    return n
+
 def reverse_digits(n):
     """
     Reverse the digits of n
