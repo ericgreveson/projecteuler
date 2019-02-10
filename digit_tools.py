@@ -80,3 +80,18 @@ def concatenate_digits(a, b):
     """
     return a * (10 ** num_digits(b)) + b
     
+def is_permutation(a, b):
+    """
+    Test if the digits of a are a permutation of the digits of b
+    """
+    digits_a = sorted(get_digits(a))
+    digits_b = sorted(get_digits(b))
+    if len(digits_a) != len(digits_b):
+        return False
+
+    for da, db in zip(digits_a, digits_b):
+        if da != db:
+            return False
+
+    return True
+    

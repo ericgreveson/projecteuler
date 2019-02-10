@@ -1,3 +1,4 @@
+from fractions import Fraction
 import math
 
 def compute_factors(n):
@@ -71,3 +72,17 @@ def get_primes(up_to):
 
     return primes[:-1]
     
+def totient(n, primes):
+    """
+    Compute totient function with precomputed primes
+    primes must include all (ordered) primes from 2 up to at least n
+    """
+    product = n
+    for p in primes:
+        if p > n:
+            break
+
+        if n % p == 0:
+            product *= (1 - Fraction(1, p))
+
+    return product
