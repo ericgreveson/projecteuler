@@ -15,8 +15,6 @@ def main():
 
         # Compute the aperiodic and periodic parts of the continued fraction form
         aperiodic, periodic = root_as_continued_fraction(i)
-        if i == 23:
-            print(f"{aperiodic} :: {periodic}")
         periodic_parts.append(periodic)
 
     num_odd = sum([1 for p in periodic_parts if len(p) % 2 == 1])

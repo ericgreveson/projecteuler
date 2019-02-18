@@ -1,4 +1,4 @@
-from factor_tools import compute_prime_factors
+from factor_tools import prime_factors
 
 def main():
     """
@@ -14,7 +14,7 @@ def main():
                 npf = num_prime_factors[n]
             else:
                 # This is a bit slow, should really keep the already computed primes around
-                npf = len(set(compute_prime_factors(n)))
+                npf = len(set(prime_factors(n)))
                 num_prime_factors[n] = npf
 
             if npf != 4:

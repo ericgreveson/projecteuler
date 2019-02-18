@@ -43,24 +43,28 @@ def next_prime(previous):
 
         i += 1
         
-def compute_prime_factors(n):
+def prime_factors(n, primes=None):
     """
     Compute all prime factors of a number n
     Some prime factors may be repeated e.g. 12 has prime factors [2, 2, 3]
+    primes: if supplied, primes up to sqrt(n) should be available
     """
-    prime_factors = []
-    current_prime = 2
+    if not primes:
+        primes = get_primes(int(math.sqrt(n)))
+
+    factors = []
     remainder = n
-    while remainder > 1:
+    for prime in primes:
         # Divide by the current prime as many times as we can
         while remainder % current_prime == 0:
-            prime_factors.append(current_prime)
+            factors.append(current_prime)
             remainder //= current_prime
 
-        # Find next prime
-        current_prime = next_prime(current_prime)
+        # We can bail out once we've finished factorizing
+        if remainder == 1:
+            break
 
-    return prime_factors
+    return factors
 
 def get_primes(up_to):
     """
@@ -86,3 +90,22 @@ def totient(n, primes):
             product *= (1 - Fraction(1, p))
 
     return product
+
+def get_coprimes(n, primes):
+    """
+    Get list of numbers coprime to n
+    primes: list of prime numbers up to at least sqrt(n)
+    """
+    factors = set(prime_factors(n, primes))
+
+    # Now sieve out the factors
+    coprime = [True for i in range(n)]
+    coprime[0] = False
+    coprime[1] = False
+    for factor in factors:
+        for multiplier in range(1, n // factor):
+            coprime[factor * multiplier] = False
+
+    # And we have the coprimes!
+    return [c for c in coprime if c]
+    
